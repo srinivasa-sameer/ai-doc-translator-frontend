@@ -8,13 +8,13 @@ const Navigation = () => {
         to="/upload"
         className={`nav-link ${pathname.includes('upload') ? 'active' : ''}`}
       >
-        Upload Page
+        Upload
       </Link>
       <Link
         to="/textbox"
-        className={`nav-link ${pathname.includes('texbox') ? 'active' : ''}`}
+        className={`nav-link ${pathname.includes('textbox') ? 'active' : ''}`}
       >
-        Text Box Page
+        Text
       </Link>
     </nav>
   );
