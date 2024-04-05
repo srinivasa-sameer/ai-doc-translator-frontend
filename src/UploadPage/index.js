@@ -25,6 +25,26 @@ const UploadPage = () => {
           <option value="zh">Chinese</option>
         </select>
         <button className="btn btn-warning">Translate</button>
+        <br />
+        <br />
+        <div className="row">
+          <div className="col-md-6">
+            <label> Translated Text:</label>
+            <textarea
+              className="form-control mt-3"
+              rows="5"
+              placeholder="Translated Text"
+            />
+          </div>
+          <div className="col-md-6">
+            <label> Translated Text from Google Translate:</label>
+            <textarea
+              className="form-control mt-3"
+              rows="5"
+              placeholder="Translated Text from Google Translate"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
