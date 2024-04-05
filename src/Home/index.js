@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <div className="container">
       <h1 className="text-center" style={{ marginTop: '1em' }}>
-        AI Doc Translator
+        Language Translation using AI
       </h1>
       <Navigation />
     </div>
