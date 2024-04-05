@@ -1,6 +1,23 @@
+import { useState } from 'react';
 import Home from '../Home';
+import axios from 'axios';
 
 const TextBoxPage = () => {
+  const [inputText, setInputText] = useState('');
+  const [translatedText, setTranslatedText] = useState('');
+
+  const translateText = async () => {
+    try {
+      console.log(inputText);
+      const response = await axios.post('https://your-colab-api-endpoint', {
+        text: inputText,
+      });
+      setTranslatedText(response.data.translatedText);
+    } catch (error) {
+      console.error('Error translating text:', error);
+    }
+  };
+
   return (
     <div>
       <Home />
@@ -8,6 +25,8 @@ const TextBoxPage = () => {
       <div className="container">
         <h4>Enter text to translate</h4>
         <textarea
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
           className="form-control"
           rows="5"
           placeholder="Enter text to translate"
@@ -26,13 +45,16 @@ const TextBoxPage = () => {
           <option value="ru">Russian</option>
           <option value="zh">Chinese</option>
         </select>
-        <button className="btn btn-warning">Translate</button>
+        <button onClick={translateText} className="btn btn-warning">
+          Translate
+        </button>
         <br />
         <br />
         <div className="row">
           <div className="col-md-6">
             <h5> Translated Text:</h5>
             <textarea
+              value={translatedText}
               className="form-control mt-3"
               rows="5"
               placeholder="Translated Text"
