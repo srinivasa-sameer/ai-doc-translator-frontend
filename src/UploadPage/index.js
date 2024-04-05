@@ -6,12 +6,12 @@ const UploadPage = () => {
       <Home />
       <div className="container">
         <br />
-        <h3>Upload a file</h3>
+        <h4>Upload a file</h4>
         <input className="form-control" type="file" />
         <button className="btn btn-primary mt-2">Upload</button>
         <br />
         <br />
-        <label>Select a language:</label>
+        <h4>Select a language:</h4>
         <select className="form-select form-select-md mb-3 mt-3">
           <option value="en">English</option>
           <option value="es">Spanish</option>
@@ -29,7 +29,7 @@ const UploadPage = () => {
         <br />
         <div className="row">
           <div className="col-md-6">
-            <label> Translated Text:</label>
+            <h5> Translated Text:</h5>
             <textarea
               className="form-control mt-3"
               rows="5"
@@ -37,7 +37,7 @@ const UploadPage = () => {
             />
           </div>
           <div className="col-md-6">
-            <label> Translated Text from Google Translate:</label>
+            <h5> Translated Text from Google Translate:</h5>
             <textarea
               className="form-control mt-3"
               rows="5"
