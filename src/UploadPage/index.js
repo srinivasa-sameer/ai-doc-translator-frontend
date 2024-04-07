@@ -1,7 +1,8 @@
 import Home from '../Home';
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { pdfjs } from 'react-pdf';
+import { Document, Page, pdfjs } from 'react-pdf';
+import axios from 'axios';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -39,6 +40,33 @@ const UploadPage = () => {
     });
   };
 
+  const [translatedText, setTranslatedText] = useState('');
+
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+
+  const options = ['English', 'German', 'Spanish', 'French'];
+
+  const handleDropdownChange = (event) => {
+    const selectedLanguage = event.target.value;
+    setSelectedLanguage(selectedLanguage);
+  };
+
+  const translateText = async () => {
+    try {
+      const response = await axios.post(
+        'https://81f8-34-86-209-30.ngrok-free.app/translate_user_text3',
+        {
+          text: pdfText,
+          language: selectedLanguage,
+          chageOrigin: true,
+        }
+      );
+      setTranslatedText(response.data.translatedText);
+    } catch (error) {
+      console.error('Error translating text:', error);
+    }
+  };
+
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
   return (
     <div>
@@ -54,16 +82,27 @@ const UploadPage = () => {
             <p>Drag 'n' drop a PDF file here, or click to select one</p>
           )}
         </div>
+        {file && (
+          <div>
+            <Document file={file} onLoadError={console.error}></Document>
+          </div>
+        )}
         <br />
         <h4>Select a language:</h4>
-        <select className="form-select form-select-md mb-3 mt-3">
-          <option value="en">English</option>
-          <option value="de">German</option>
-          <option value="es">Spanish</option>
-          <option value="fr">French</option>
-          <option value="it">Italian</option>
+        <select
+          className="form-select form-select-md mb-3 mt-3"
+          value={selectedLanguage}
+          onChange={handleDropdownChange}
+        >
+          {options.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
         </select>
-        <button className="btn btn-warning">Translate</button>
+        <button onClick={translateText} className="btn btn-warning">
+          Translate
+        </button>
         <br />
         <br />
         <div className="row">
@@ -79,6 +118,7 @@ const UploadPage = () => {
           <div className="col">
             <h5> Translated Text:</h5>
             <textarea
+              value={translatedText}
               className="form-control mt-3"
               rows="5"
               placeholder="Translated Text"

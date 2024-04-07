@@ -6,17 +6,26 @@ const TextBoxPage = () => {
   const [inputText, setInputText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
 
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+
+  const options = ['English', 'German', 'Spanish', 'French'];
+
+  const handleDropdownChange = (event) => {
+    const selectedLanguage = event.target.value;
+    setSelectedLanguage(selectedLanguage);
+  };
+
   const translateText = async () => {
     try {
       const response = await axios.post(
         'https://81f8-34-86-209-30.ngrok-free.app/translate_user_text3',
         {
           text: inputText,
+          language: selectedLanguage,
           chageOrigin: true,
         }
       );
       setTranslatedText(response.data.translatedText);
-      console.log(translateText);
     } catch (error) {
       console.error('Error translating text:', error);
     }
@@ -37,11 +46,16 @@ const TextBoxPage = () => {
         />
         <br />
         <h4>Select a language:</h4>
-        <select className="form-select form-select-md mb-3 mt-3">
-          <option value="en">English</option>
-          <option value="es">Spanish</option>
-          <option value="fr">French</option>
-          <option value="de">German</option>
+        <select
+          className="form-select form-select-md mb-3 mt-3"
+          value={selectedLanguage}
+          onChange={handleDropdownChange}
+        >
+          {options.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
         </select>
         <button onClick={translateText} className="btn btn-warning">
           Translate
