@@ -7,7 +7,6 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const UploadPage = () => {
   const [file, setFile] = useState(null);
-  const [numPages, setNumPages] = useState(null);
   const [pdfText, setPdfText] = useState('');
 
   const onDrop = (acceptedFiles) => {
@@ -37,7 +36,6 @@ const UploadPage = () => {
           });
         });
       }
-      setNumPages(pdf.numPages);
     });
   };
 
