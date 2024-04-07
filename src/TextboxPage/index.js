@@ -3,16 +3,27 @@ import Home from '../Home';
 import axios from 'axios';
 
 const TextBoxPage = () => {
+  const options = [{ label: 'English', value: 'English' }];
+  const [selectedValue, setSelectedValue] = useState('');
+
+  const handleChange = (event) => {
+    const selectedOption = event.target.value;
+    setSelectedValue(selectedOption);
+  };
   const [inputText, setInputText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
 
   const translateText = async () => {
     try {
-      console.log(inputText);
-      const response = await axios.post('https://your-colab-api-endpoint', {
-        text: inputText,
-      });
+      const response = await axios.post(
+        'http://81f8-34-86-209-30.ngrok-free.app/translate_user_text3',
+        {
+          text: inputText,
+          chageOrigin: true,
+        }
+      );
       setTranslatedText(response.data.translatedText);
+      console.log(translateText);
     } catch (error) {
       console.error('Error translating text:', error);
     }
@@ -38,12 +49,6 @@ const TextBoxPage = () => {
           <option value="es">Spanish</option>
           <option value="fr">French</option>
           <option value="de">German</option>
-          <option value="it">Italian</option>
-          <option value="ja">Japanese</option>
-          <option value="ko">Korean</option>
-          <option value="pt">Portuguese</option>
-          <option value="ru">Russian</option>
-          <option value="zh">Chinese</option>
         </select>
         <button onClick={translateText} className="btn btn-warning">
           Translate
