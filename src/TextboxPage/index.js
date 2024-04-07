@@ -9,7 +9,7 @@ const TextBoxPage = () => {
   const translateText = async () => {
     try {
       const response = await axios.post(
-        'http://81f8-34-86-209-30.ngrok-free.app/translate_user_text3',
+        'https://81f8-34-86-209-30.ngrok-free.app/translate_user_text3',
         {
           text: inputText,
           chageOrigin: true,
