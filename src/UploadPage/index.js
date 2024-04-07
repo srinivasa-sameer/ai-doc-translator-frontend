@@ -1,7 +1,7 @@
 import Home from '../Home';
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { pdfjs } from 'react-pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -27,6 +27,7 @@ const UploadPage = () => {
     pdfjs.getDocument(url).promise.then(function (pdf) {
       let text = '';
       for (let i = 1; i <= pdf.numPages; i++) {
+        // eslint-disable-next-line no-loop-func
         pdf.getPage(i).then(function (page) {
           page.getTextContent().then(function (textContent) {
             textContent.items.forEach(function (textItem) {

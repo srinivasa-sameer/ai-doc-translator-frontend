@@ -3,13 +3,6 @@ import Home from '../Home';
 import axios from 'axios';
 
 const TextBoxPage = () => {
-  const options = [{ label: 'English', value: 'English' }];
-  const [selectedValue, setSelectedValue] = useState('');
-
-  const handleChange = (event) => {
-    const selectedOption = event.target.value;
-    setSelectedValue(selectedOption);
-  };
   const [inputText, setInputText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
 
