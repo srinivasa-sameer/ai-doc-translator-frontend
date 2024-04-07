@@ -1,7 +1,7 @@
 import Home from '../Home';
 import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, pdfjs } from 'react-pdf';
 import axios from 'axios';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
