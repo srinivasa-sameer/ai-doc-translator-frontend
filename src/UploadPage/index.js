@@ -60,7 +60,7 @@ const UploadPage = () => {
   const translateText = async () => {
     try {
       const response = await axios.post(
-        'https://81f8-34-86-209-30.ngrok-free.app/translate_user_text3',
+        'http://4888-34-125-174-8.ngrok-free.app/text_translate',
         {
           text: pdfText,
           sourceLanguage: selectedSourceLanguage,
