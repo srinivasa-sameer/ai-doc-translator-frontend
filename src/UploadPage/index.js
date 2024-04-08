@@ -63,8 +63,8 @@ const UploadPage = () => {
         'https://4888-34-125-174-8.ngrok-free.app/text_translate',
         {
           text: pdfText,
-          sourceLanguage: selectedSourceLanguage,
-          destinationlanguage: selectedLanguage,
+          src: selectedSourceLanguage,
+          target: selectedLanguage,
           chageOrigin: true,
         }
       );
