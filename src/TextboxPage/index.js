@@ -7,12 +7,18 @@ const TextBoxPage = () => {
   const [translatedText, setTranslatedText] = useState('');
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [selectedSourceLanguage, setSelectedSourceLanguage] = useState('');
 
   const options = ['English', 'German', 'Spanish', 'French'];
 
-  const handleDropdownChange = (event) => {
+  const handleDestinationDropdownChange = (event) => {
     const selectedLanguage = event.target.value;
     setSelectedLanguage(selectedLanguage);
+  };
+
+  const handleSourceDropdownChange = (event) => {
+    const selectedSourceLanguage = event.target.value;
+    setSelectedSourceLanguage(selectedSourceLanguage);
   };
 
   const translateText = async () => {
@@ -21,7 +27,8 @@ const TextBoxPage = () => {
         'https://81f8-34-86-209-30.ngrok-free.app/translate_user_text3',
         {
           text: inputText,
-          language: selectedLanguage,
+          sourceLanguage: selectedSourceLanguage,
+          destinationlanguage: selectedLanguage,
           chageOrigin: true,
         }
       );
@@ -36,6 +43,19 @@ const TextBoxPage = () => {
       <Home />
       <br />
       <div className="container">
+        <h4>Select Source Language:</h4>
+        <select
+          className="form-select form-select-md mb-3 mt-3"
+          value={selectedSourceLanguage}
+          onChange={handleSourceDropdownChange}
+        >
+          {options.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+
         <h4>Enter text to translate</h4>
         <textarea
           value={inputText}
@@ -49,7 +69,7 @@ const TextBoxPage = () => {
         <select
           className="form-select form-select-md mb-3 mt-3"
           value={selectedLanguage}
-          onChange={handleDropdownChange}
+          onChange={handleDestinationDropdownChange}
         >
           {options.map((option, index) => (
             <option key={index} value={option}>
@@ -63,21 +83,13 @@ const TextBoxPage = () => {
         <br />
         <br />
         <div className="row">
-          <div className="col-md-6">
+          <div className="col">
             <h5> Translated Text:</h5>
             <textarea
               value={translatedText}
               className="form-control mt-3"
               rows="5"
               placeholder="Translated Text"
-            />
-          </div>
-          <div className="col-md-6">
-            <h5> Translated Text from Google Translate:</h5>
-            <textarea
-              className="form-control mt-3"
-              rows="5"
-              placeholder="Translated Text from Google Translate"
             />
           </div>
         </div>
