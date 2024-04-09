@@ -7,7 +7,8 @@ const TextBoxPage = () => {
   const [translatedText, setTranslatedText] = useState('');
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
-  const [selectedSourceLanguage, setSelectedSourceLanguage] = useState('');
+  const [selectedSourceLanguage, setSelectedSourceLanguage] =
+    useState('English');
 
   const options = ['English', 'German', 'Spanish', 'French'];
 
