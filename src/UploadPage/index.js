@@ -65,7 +65,7 @@ const UploadPage = () => {
           text: pdfText,
           src: selectedSourceLanguage,
           target: selectedLanguage,
-          chageOrigin: true,
+          changeOrigin: true,
         }
       );
       setTranslatedText(response.data.translatedText);

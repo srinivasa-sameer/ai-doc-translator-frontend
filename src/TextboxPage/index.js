@@ -29,7 +29,7 @@ const TextBoxPage = () => {
           text: inputText,
           src: selectedSourceLanguage,
           target: selectedLanguage,
-          chageOrigin: true,
+          changeOrigin: true,
         }
       );
       setTranslatedText(response.data.translatedText);
