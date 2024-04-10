@@ -5,6 +5,9 @@ import axios from 'axios';
 const TextBoxPage = () => {
   const [inputText, setInputText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
+  const [translatedTextGoogleTranslate, setTranslatedTextGoogleTranslate] =
+    useState('');
+  const [similarity, setSimilarity] = useState('');
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedSourceLanguage, setSelectedSourceLanguage] =
@@ -25,7 +28,7 @@ const TextBoxPage = () => {
   const translateText = async () => {
     try {
       const response = await axios.post(
-        'https://43fd-34-73-234-131.ngrok-free.app/text_translate',
+        'https://72c7-34-73-234-131.ngrok-free.app/text_lang_translate',
         {
           text: inputText,
           src: selectedSourceLanguage,
@@ -34,10 +37,14 @@ const TextBoxPage = () => {
         }
       );
       setTranslatedText(response.data.translatedText);
+      setTranslatedTextGoogleTranslate(response.data.translatedTextGoogle);
+      setSimilarity(response.data.similarity);
     } catch (error) {
       console.error('Error translating text:', error);
     }
   };
+
+  const roundedSimilarity = Math.round(similarity * 100) / 100;
 
   return (
     <div>
@@ -92,6 +99,21 @@ const TextBoxPage = () => {
               rows="5"
               placeholder="Translated Text"
             />
+          </div>
+          <div className="col">
+            <h5>Translated Text from Google Translate:</h5>
+            <textarea
+              value={translatedTextGoogleTranslate}
+              className="form-control mt-3"
+              rows="5"
+              placeholder="Translated Text from Google Translate"
+            />
+          </div>
+        </div>
+        <br />
+        <div className="row">
+          <div className="col">
+            <h4>Similarity: {roundedSimilarity * 100}%</h4>
           </div>
         </div>
       </div>

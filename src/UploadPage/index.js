@@ -41,6 +41,9 @@ const UploadPage = () => {
   };
 
   const [translatedText, setTranslatedText] = useState('');
+  const [translatedTextGoogleTranslate, setTranslatedTextGoogleTranslate] =
+    useState('');
+  const [similarity, setSimilarity] = useState('');
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedSourceLanguage, setSelectedSourceLanguage] = useState('');
@@ -60,7 +63,7 @@ const UploadPage = () => {
   const translateText = async () => {
     try {
       const response = await axios.post(
-        'https://43fd-34-73-234-131.ngrok-free.app/text_translate',
+        'https://72c7-34-73-234-131.ngrok-free.app/text_lang_translate',
         {
           text: pdfText,
           src: selectedSourceLanguage,
@@ -69,26 +72,19 @@ const UploadPage = () => {
         }
       );
       setTranslatedText(response.data.translatedText);
+      setTranslatedTextGoogleTranslate(response.data.translatedTextGoogle);
+      setSimilarity(response.data.similarity);
     } catch (error) {
       console.error('Error translating text:', error);
     }
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  const roundedSimilarity = Math.round(similarity * 100) / 100;
   return (
     <div>
       <Home />
       <div className="container">
-        <br />
-        <h4>Upload a file</h4>
-        <div {...getRootProps()} style={dropzoneStyles}>
-          <input {...getInputProps()} />
-          {file ? (
-            <p>Uploaded File: {file.name}</p>
-          ) : (
-            <p>Drag 'n' drop a PDF file here, or click to select one</p>
-          )}
-        </div>
         <br />
         <h4>Select Source Language:</h4>
         <select
@@ -102,6 +98,17 @@ const UploadPage = () => {
             </option>
           ))}
         </select>
+        <br />
+        <h4>Upload a file</h4>
+        <div {...getRootProps()} style={dropzoneStyles}>
+          <input {...getInputProps()} />
+          {file ? (
+            <p>Uploaded File: {file.name}</p>
+          ) : (
+            <p>Drag 'n' drop a PDF file here, or click to select one</p>
+          )}
+        </div>
+        <br />
         {file && (
           <div>
             <Document file={file} onLoadError={console.error}></Document>
@@ -145,6 +152,24 @@ const UploadPage = () => {
             />
           </div>
         </div>
+        <br />
+        <div className="row">
+          <div className="col">
+            <h5>Translated Text from Google Translate:</h5>
+            <textarea
+              value={translatedTextGoogleTranslate}
+              className="form-control mt-3"
+              rows="5"
+              placeholder="Translated Text from Google Translate"
+            />
+          </div>
+          <div className="col">
+            <h5>Similarity: {roundedSimilarity * 100}%</h5>
+          </div>
+        </div>
+        <br />
+        <br />
+        <br />
       </div>
     </div>
   );
