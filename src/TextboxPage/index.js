@@ -28,7 +28,7 @@ const TextBoxPage = () => {
   const translateText = async () => {
     try {
       const response = await axios.post(
-        'https://72c7-34-73-234-131.ngrok-free.app/text_lang_translate',
+        'https://7fbe-34-31-191-170.ngrok-free.app/text_lang_translate',
         {
           text: inputText,
           src: selectedSourceLanguage,
